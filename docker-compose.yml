@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  zabbix-server:
+    container_name: zabbix-server
+    image: zabbix/zabbix-server-mysql
+    environment:
+      - DB_SERVER_HOST=zabbix-mysql-db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=P@ssw0rld8585
+    volumes:
+      - /var/lib/zabbix/export:/var/lib/zabbix/export
+      - /var/lib/zabbix/mibs:/var/lib/zabbix/mibs
+      - /var/lib/zabbix/snmptraps:/var/lib/zabbix/snmptraps
+      - /var/lib/zabbix/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca
+      - /var/lib/zabbix/ssl/keys:/var/lib/zabbix/ssl/keys
+      - /var/lib/zabbix/ssl/certs:/var/lib/zabbix/ssl/certs
+      - /var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys
+      - /var/lib/zabbix/enc:/var/lib/zabbix/enc
+      - /var/lib/zabbix/modules:/var/lib/zabbix/modules
+      - /usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts
+      - /usr/lib/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
+    depends_on:
+      - zabbix-mysql-db
+
+  zabbix-mysql-db:
+    container_name: zabbix-mysql-db
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=P@ssw0rld8585
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+
+  zabbix-web:
+    container_name: zabbix-web
+    image: zabbix/zabbix-web-nginx-mysql
+    environment:
+      - DB_SERVER_HOST=zabbix-mysql-db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=P@ssw0rld8585
+      - ZBX_SERVER_HOST=zabbix-server
+    ports:
+      - 8080:8080
+    depends_on:
+      - zabbix-server
