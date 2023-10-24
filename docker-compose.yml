@@ -7,7 +7,7 @@ services:
     environment:
       - DB_SERVER_HOST=zabbix-mysql-db
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=P@ssw0rld8585
+      - MYSQL_PASSWORD=YOUR_MYSQL_PASSWORD
     volumes:
       - /var/lib/zabbix/export:/var/lib/zabbix/export
       - /var/lib/zabbix/mibs:/var/lib/zabbix/mibs
@@ -27,7 +27,7 @@ services:
     container_name: zabbix-mysql-db
     image: mysql:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=P@ssw0rld8585
+      - MYSQL_ROOT_PASSWORD=YOUR_MYSQL_PASSWORD
     volumes:
       - /var/lib/mysql:/var/lib/mysql
 
@@ -37,7 +37,7 @@ services:
     environment:
       - DB_SERVER_HOST=zabbix-mysql-db
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=P@ssw0rld8585
+      - MYSQL_PASSWORD=YOUR_MYSQL_PASSWORD
       - ZBX_SERVER_HOST=zabbix-server
     ports:
       - 8080:8080
