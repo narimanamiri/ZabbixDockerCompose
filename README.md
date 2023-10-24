@@ -2,7 +2,7 @@
 
 
 
-Replace YOUR_MYSQL_USER with a user and YOUR_MYSQL_PASSWORD with your password
+Replace YOUR_MYSQL_PASSWORD with your password
 
 run this command
 
